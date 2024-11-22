@@ -1,0 +1,13 @@
+@use "sass:math";
+
+@use './inc/libs'; // Сторонние библиотеки
+@use './inc/reset';
+@use './inc/base-variables';
+@use './inc/colors-variables';
+@use './inc/mixins' as mixin;
+@use './inc/fonts';
+@use './inc/global';
+
+@forward './blocks/header/index';
+@forward './blocks/404/index';
+@forward './blocks/footer/index';
