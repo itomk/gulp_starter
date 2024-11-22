@@ -1,6 +1,15 @@
-import { throttle } from "../functions/throttle.js";
-import { setHeaderHeight } from "../functions/header-height.js";
+import { throttle } from '../functions/throttle.js'
 
-const headerOnResizeWindow = window.addEventListener('resize', () => { throttle(setHeaderHeight) });
+const setHeaderHeight = (elem_name = 'header.header') => {
+  let headerHeight = parseFloat(document?.querySelector(`${elem_name}`).offsetHeight.toFixed(2))
 
-export { headerOnResizeWindow };
+  let headerHeightChange = document.querySelector(':root').style.setProperty('--header-height', `${headerHeight}px`)
+  throttle(headerHeightChange)
+}
+
+const headerHeightOnResize = () => {
+  setHeaderHeight()
+  window.addEventListener('resize', () => setHeaderHeight())
+}
+
+export { headerHeightOnResize }

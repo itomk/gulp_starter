@@ -1,25 +1,14 @@
-export const throttle = (func, delay = 250) => {
-  let isThrottled = false
-  let savedArgs = null
-  let savedThis = null
+function throttle(funcs, delay = 250) {
+  let isThrottled = null
 
-  return function wrap(...args) {
-    if (isThrottled) {
-      ; (savedArgs = args), (savedThis = this)
-      return
+  return (...args) => {
+    if (isThrottled === null) {
+      funcs(...args)
+      isThrottled = setTimeout(() => {
+        isThrottled = null
+      }, delay)
     }
-
-    func.apply(this, args)
-    isThrottled = true
-
-    setTimeout(() => {
-      isThrottled = false
-
-      if (savedThis) {
-        wrap.apply(savedThis, savedArgs)
-        savedThis = null
-        savedArgs = null
-      }
-    }, delay)
   }
 }
+
+export { throttle }
